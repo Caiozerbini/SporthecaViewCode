@@ -12,7 +12,6 @@ class IntroViewController: UIViewController {
     
     private lazy var userView: UIImageView = {
         let userImage = UIImageView()
-        //userImage.frame = CGRect(x: 135, y: 80, width: 140, height: 140)
         userImage.translatesAutoresizingMaskIntoConstraints = false
         userImage.layer.cornerRadius = 70
         userImage.layer.masksToBounds = true
@@ -53,7 +52,6 @@ class IntroViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .lightGray
         view.alpha = 0.7
-        view.frame = CGRect(x: 158, y: 398, width: 100, height: 100)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 50
         view.layer.masksToBounds = true
@@ -98,7 +96,7 @@ class IntroViewController: UIViewController {
     
     private lazy var victoriesBar: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .bar)
-        progress.frame = CGRect(x: 32, y: 594, width: 250, height: 50)
+        progress.translatesAutoresizingMaskIntoConstraints = false
         progress.setProgress(0.4, animated: false)
         progress.trackTintColor = .clear
         progress.tintColor = .purple
@@ -107,7 +105,7 @@ class IntroViewController: UIViewController {
         progress.clipsToBounds = true
         progress.layer.borderWidth = 0.2
         progress.layer.borderColor = UIColor.white.cgColor
-        progress.transform = CGAffineTransform(scaleX: 1.2,y: 13)
+        progress.transform = CGAffineTransform(scaleX: 1.2,y: 5)
         return progress
     }()
     
@@ -140,7 +138,7 @@ class IntroViewController: UIViewController {
     
     private lazy var disputedBar: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .bar)
-        progress.frame = CGRect(x: 32, y: 685, width: 250, height: 50)
+        progress.translatesAutoresizingMaskIntoConstraints = false
         progress.setProgress(0.4, animated: false)
         progress.trackTintColor = .clear
         progress.tintColor = .purple
@@ -149,7 +147,7 @@ class IntroViewController: UIViewController {
         progress.clipsToBounds = true
         progress.layer.borderWidth = 0.2
         progress.layer.borderColor = UIColor.white.cgColor
-        progress.transform = CGAffineTransform(scaleX: 1.2,y: 13)
+        progress.transform = CGAffineTransform(scaleX: 1.2,y: 5)
         return progress
     }()
     
@@ -171,11 +169,14 @@ class IntroViewController: UIViewController {
         constraintsNameLabel()
         constraintsPosLabel()
         constraintsCountryLabel()
+        constraintsPercentageView()
         constraintsPercentageLabel()
         constraintsCupsVictoriesLabel()
+        constraintsVictoriesBar()
         constraintsPlaVictories()
         constraintsPosVictories()
         constraintsCupsDisputedLabel()
+        constraintsDisputedBar()
         constraintsPlaDisputed()
         constraintsPosDisputed()
     }
@@ -227,8 +228,6 @@ class IntroViewController: UIViewController {
         }
     }
     
-    
-    
     func constraintsNameLabel(){
         let constraints = [
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -262,10 +261,23 @@ class IntroViewController: UIViewController {
         }
     }
     
+    func constraintsPercentageView(){
+        let constraints = [
+            percentageView.heightAnchor.constraint(equalToConstant: 100),
+            percentageView.widthAnchor.constraint(equalToConstant: 100),
+            percentageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            percentageView.topAnchor.constraint(equalTo: countryLabel.bottomAnchor, constant: 30)
+        ]
+        
+        constraints.forEach { (item) in
+            item.isActive = true
+        }
+    }
+    
     func constraintsPercentageLabel(){
         let constraints = [
-            percentageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            percentageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            percentageLabel.centerXAnchor.constraint(equalTo: percentageView.centerXAnchor),
+            percentageLabel.centerYAnchor.constraint(equalTo: percentageView.centerYAnchor)
         ]
         
         constraints.forEach { (item) in
@@ -277,6 +289,19 @@ class IntroViewController: UIViewController {
         let constraints = [
             cupsVictoriesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cupsVictoriesLabel.centerYAnchor.constraint(equalTo: percentageLabel.bottomAnchor, constant: 105)
+        ]
+        
+        constraints.forEach { (item) in
+            item.isActive = true
+        }
+    }
+
+    func constraintsVictoriesBar(){
+        let constraints = [
+            victoriesBar.heightAnchor.constraint(equalToConstant: 5),
+            victoriesBar.widthAnchor.constraint(equalToConstant: 250),
+            victoriesBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            victoriesBar.topAnchor.constraint(equalTo: cupsVictoriesLabel.bottomAnchor, constant: 12)
         ]
         
         constraints.forEach { (item) in
@@ -310,6 +335,19 @@ class IntroViewController: UIViewController {
         let constraints = [
             cupsDisputedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cupsDisputedLabel.centerYAnchor.constraint(equalTo: plaVictories.bottomAnchor, constant: 50)
+        ]
+        
+        constraints.forEach { (item) in
+            item.isActive = true
+        }
+    }
+    
+    func constraintsDisputedBar(){
+        let constraints = [
+            disputedBar.heightAnchor.constraint(equalToConstant: 5),
+            disputedBar.widthAnchor.constraint(equalToConstant: 250),
+            disputedBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            disputedBar.topAnchor.constraint(equalTo: cupsDisputedLabel.bottomAnchor, constant: 12)
         ]
         
         constraints.forEach { (item) in
