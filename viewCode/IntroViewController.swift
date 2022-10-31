@@ -12,8 +12,8 @@ class IntroViewController: UIViewController {
     
     private lazy var userView: UIImageView = {
         let userImage = UIImageView()
-        userImage.frame = CGRect(x: 135, y: 80, width: 140, height: 140)
-        userImage.translatesAutoresizingMaskIntoConstraints = true
+        //userImage.frame = CGRect(x: 135, y: 80, width: 140, height: 140)
+        userImage.translatesAutoresizingMaskIntoConstraints = false
         userImage.layer.cornerRadius = 70
         userImage.layer.masksToBounds = true
         userImage.backgroundColor = .yellow
@@ -167,6 +167,7 @@ class IntroViewController: UIViewController {
         }
         
         addSubview()
+        constraintsUserView()
         constraintsNameLabel()
         constraintsPosLabel()
         constraintsCountryLabel()
@@ -177,7 +178,6 @@ class IntroViewController: UIViewController {
         constraintsCupsDisputedLabel()
         constraintsPlaDisputed()
         constraintsPosDisputed()
-        
     }
     
     private func addSubview(){
@@ -212,6 +212,19 @@ class IntroViewController: UIViewController {
         let disputedProgress = Float(player.worldCupPlayed.pla / player.worldCupPlayed.max)
         victoriesBar.progress = victoryProgress
         disputedBar.progress = disputedProgress
+    }
+    
+    func constraintsUserView(){
+        let constraints = [
+            userView.heightAnchor.constraint(equalToConstant: 150),
+            userView.widthAnchor.constraint(equalToConstant: 150),
+            userView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80)
+        ]
+        
+        constraints.forEach { (item) in
+            item.isActive = true
+        }
     }
     
     
